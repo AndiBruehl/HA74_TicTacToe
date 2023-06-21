@@ -74,6 +74,22 @@ function finishGame(text) {
 }
 
 function botMove() {
+    for (let i = 0; i < winningCombinations.length; i++) {
+        const combination = winningCombinations[i];
+        const emptyCells = combination.filter(value => !oMoves.includes(value));
+        if (emptyCells.length === 1) {
+            const index = emptyCells[0];
+            cells[index].style.backgroundImage = 'none';
+            cells[index].textContent = 'O';
+            cells[index].style.backgroundColor = 'lightcoral';
+            oMoves.push(index);
+            currentPlayer = 'X';
+            cells[index].classList.add('clicked');
+            gameFinished();
+            return;
+        }
+    }
+
     const availableMoves = cells.reduce((acc, cell, index) => {
         if (cell.textContent === '') {
             acc.push(index);
@@ -85,12 +101,15 @@ function botMove() {
     const index = availableMoves[randomIndex];
     cells[index].style.backgroundImage = 'none';
     cells[index].textContent = 'O';
-    cells[index].style.backgroundColor = 'lightcoral'; 
+    cells[index].style.backgroundColor = 'lightcoral';
     oMoves.push(index);
 
     currentPlayer = 'X';
     cells[index].classList.add('clicked');
+    gameFinished();
+    return;
 }
+
 
 createBoard();
 

@@ -90,6 +90,7 @@ function botMove() {
 
     currentPlayer = 'X';
     cells[index].classList.add('clicked');
+    gameFinished();
 }
 
 function minimax(availableMoves, player) {
@@ -161,4 +162,3 @@ function winningState(moves) {
 }
 
 createBoard();
-
