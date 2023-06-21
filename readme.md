@@ -12,7 +12,11 @@ Gerne bescheid sagen, falls nicht.
 21.06.2023, 22:45Uhr
 letzter Commit: Habe auf der Startseite den Button zum Download der Aufgabe1 angepasst und je einen Button für Aufgabe2 und einen für Aufgabe3 hinzugefügt, über den man die ebenfalls hinzugefügten PDFs von Aufgabe2 und Aufgabe3 ansehen/downloaden kann.
 Die PDFs der Aufgaben liegen hierbei in den zugehörigen Ordern, sodass sich folgende Struktur ergibt:
-/Aufgabe1/aufgabe-01.pdf
+
+/Aufgabe1/aufgabe-01.pdf 
+
 /Aufgabe2/aufgabe-02.pdf
+
 /Aufgabe3/aufgabe-03.pdf
+
 Hoffe nun bin ich fertig und mein innerer Monk gibt Ruhe :D :P
