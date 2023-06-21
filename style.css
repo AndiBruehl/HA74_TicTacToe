@@ -37,7 +37,7 @@ h1
   margin: 10px;
 }
 
-#btnOne, #btnTwo, #btnThree, #pdfBtn {
+#btnOne, #btnTwo, #btnThree, #pdfBtn1, #pdfBtn2, #pdfBtn3 {
   margin: 5px;
   font-size: 16px;
   background-color: green;
@@ -47,11 +47,11 @@ h1
   box-sizing: border-box;
 }
 
-#btnOne:hover, #btnTwo:hover, #btnThree:hover, #pdfBtn:hover {
+#btnOne:hover, #btnTwo:hover, #btnThree:hover, #pdfBtn1:hover , #pdfBtn2:hover , #pdfBtn3:hover {
   background-color: red;
 }
 
-#btnOne:active, #btnTwo:active, #btnThree:active, #pdfBtn:active {
+#btnOne:active, #btnTwo:active, #btnThree:active, #pdfBtn1:active , #pdfBtn2:active , #pdfBtn3:active {
   background-color: blue;
 }
 footer {
