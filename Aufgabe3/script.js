@@ -1,6 +1,7 @@
-const board = document.getElementById('board');
+const board = document.getElementById("board");
 const cells = [];
-let currentPlayer = 'X';
+let currentPlayer = "X";
+
 let xMoves = [];
 let oMoves = [];
 
@@ -17,8 +18,8 @@ const winningCombinations = [
 
 function createBoard() {
     for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
         board.appendChild(cell);
         cells.push(cell);
         cell.addEventListener('click', () => makeMove(i));
@@ -26,19 +27,20 @@ function createBoard() {
 }
 
 function makeMove(index) {
-    if (cells[index].textContent === '') {
+    if (cells[index].textContent === "") {
         cells[index].textContent = currentPlayer;
-        cells[index].style.backgroundImage = 'none';
-        cells[index].classList.add('clicked');
-        cells[index].style.backgroundColor = currentPlayer === 'X' ? 'lightblue' : 'lightcoral';
-        if (currentPlayer === 'X') {
-            currentPlayer = 'O';
+        cells[index].style.backgroundImage = "none";
+        cells[index].classList.add("clicked");
+        if (currentPlayer === "X") {
+            cells[index].style.backgroundColor = "lightblue";
+            currentPlayer = "O";
             xMoves.push(index);
             setTimeout(() => {
                 botMove();
-            }, 100);
+            }, 300);
         } else {
-            currentPlayer = 'X';
+            cells[index].style.backgroundColor = "lightcoral";
+            currentPlayer = "X";
             oMoves.push(index);
         }
         gameFinished();
@@ -48,21 +50,53 @@ function makeMove(index) {
 function gameFinished() {
     for (let i = 0; i < winningCombinations.length; i++) {
         const combination = winningCombinations[i];
-        if (combination.every(value => xMoves.includes(value))) {
-            finishGame('Glückwunsch! :)\nSie haben gewonnen!');
-            return;
+        if (combination.every((value) => xMoves.includes(value))) {
+          finishGame('Glückwunsch! :)\nSie haben gewonnen!');
+          return;
         }
-        if (combination.every(value => oMoves.includes(value))) {
-            finishGame('Leider Pech gehabt! :(\nDer Computer hat gewonnen');
-            return;
+        if (combination.every((value) => oMoves.includes(value))) {
+          finishGame('Leider Pech gehabt! :(\nDer Computer hat gewonnen');
+          return;
         }
     }
 
-    const totalMove = oMoves.length + xMoves.length;
-    if (totalMove === 9 && !xMoves.length === !oMoves.length) {
-        finishGame('Unentschieden');
-        return;
+    const totalMoves = oMoves.length + xMoves.length;
+    if (totalMoves === 9 && !xMoves.length === !oMoves.length) {
+      finishGame('Unentschieden');
     }
+}
+
+function botMove() {
+    let botIndex = -1;
+    for (let i = 0; i < winningCombinations.length; i++) {
+        const combination = winningCombinations[i];
+        const emptyCells = combination.filter((value) => !xMoves.includes(value) && !oMoves.includes(value));
+        if (emptyCells.length === 1) {
+            botIndex = emptyCells[0];
+            break;
+        }
+    }
+
+    if (botIndex === -1) {
+        const availableMoves = cells.reduce((acc, cell, index) => {
+            if (cell.textContent === "") {
+                acc.push(index);
+            }
+            return acc;
+        }, []);
+
+        const randomIndex = Math.floor(Math.random() * availableMoves.length);
+        botIndex = availableMoves[randomIndex];
+    }
+
+    cells[botIndex].style.backgroundImage = "none";
+    cells[botIndex].textContent = "O";
+    cells[botIndex].style.backgroundColor = "lightcoral";
+    oMoves.push(botIndex);
+
+    currentPlayer = "X";
+    cells[botIndex].classList.add("clicked");
+    gameFinished();
 }
 
 function finishGame(text) {
@@ -72,44 +106,6 @@ function finishGame(text) {
         }
     }, 100);
 }
-
-function botMove() {
-    for (let i = 0; i < winningCombinations.length; i++) {
-        const combination = winningCombinations[i];
-        const emptyCells = combination.filter(value => !oMoves.includes(value));
-        if (emptyCells.length === 1) {
-            const index = emptyCells[0];
-            cells[index].style.backgroundImage = 'none';
-            cells[index].textContent = 'O';
-            cells[index].style.backgroundColor = 'lightcoral';
-            oMoves.push(index);
-            currentPlayer = 'X';
-            cells[index].classList.add('clicked');
-            gameFinished();
-            return;
-        }
-    }
-
-    const availableMoves = cells.reduce((acc, cell, index) => {
-        if (cell.textContent === '') {
-            acc.push(index);
-        }
-        return acc;
-    }, []);
-
-    const randomIndex = Math.floor(Math.random() * availableMoves.length);
-    const index = availableMoves[randomIndex];
-    cells[index].style.backgroundImage = 'none';
-    cells[index].textContent = 'O';
-    cells[index].style.backgroundColor = 'lightcoral';
-    oMoves.push(index);
-
-    currentPlayer = 'X';
-    cells[index].classList.add('clicked');
-    gameFinished();
-    return;
-}
-
 
 createBoard();
 
