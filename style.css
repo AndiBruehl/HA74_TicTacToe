@@ -64,3 +64,20 @@ footer {
 p{
   color:red;
 }
+/*
+#btnThree {
+  margin: 5px;
+  font-size: 16px;
+  background-color: transparent;
+  color: transparent;
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: auto;
+}
+
+*/
